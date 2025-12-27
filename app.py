@@ -824,21 +824,38 @@ if st.session_state.formatted_text:
                 if current_chunk:
                     chunks.append(current_chunk.replace('。', '').replace('、', ''))
 
-                # chunksを14文字程度でまとめる
+                # chunksを14文字程度でまとめる（できるだけ14文字に近づける）
                 current_line = ""
                 for chunk in chunks:
                     chunk = chunk.strip()
                     if not chunk:
                         continue
 
-                    # 現在の行にchunkを追加した場合の長さをチェック
-                    if current_line and len(current_line + chunk) > target_length:
-                        # 長すぎる場合は現在の行を確定
+                    if not current_line:
+                        # 最初のchunk
+                        current_line = chunk
+                        continue
+
+                    # 現在の行の長さと、chunkを追加した場合の長さ
+                    current_len = len(current_line)
+                    combined_len = len(current_line + chunk)
+
+                    # 14文字からの距離を計算
+                    current_distance = abs(target_length - current_len)
+                    combined_distance = abs(target_length - combined_len)
+
+                    # 18文字を超える場合は強制的に改行（上限）
+                    if combined_len > target_length + 4:
                         new_lines.append(current_line)
                         current_line = chunk
-                    else:
-                        # 追加できる場合は追加
+                    # どちらが14文字に近いかで判断
+                    elif combined_distance <= current_distance:
+                        # 追加した方が14に近い
                         current_line += chunk
+                    else:
+                        # 追加しない方が14に近い
+                        new_lines.append(current_line)
+                        current_line = chunk
 
                 # 残りがあれば追加
                 if current_line:
