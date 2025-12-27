@@ -439,6 +439,31 @@ st.markdown("動画をアップロードして、文字起こし → 整形 → 
 
 # サイドバー：API設定
 with st.sidebar:
+    # サイドバーのテキストを全て黒色にするカスタムCSS
+    st.markdown("""
+    <style>
+    /* サイドバーの全てのラベルを黒色に */
+    [data-testid="stSidebar"] label {
+        color: #000000 !important;
+    }
+    /* サイドバーの段落テキストを黒色に */
+    [data-testid="stSidebar"] p {
+        color: #000000 !important;
+    }
+    /* サイドバーの見出しを黒色に */
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4 {
+        color: #000000 !important;
+    }
+    /* サイドバーのstrongタグを黒色に */
+    [data-testid="stSidebar"] strong {
+        color: #000000 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.markdown('<h2 style="color: #000000 !important;">⚙️ API設定</h2>', unsafe_allow_html=True)
     st.markdown('<p style="color: #000000 !important;">各APIキーを入力してください</p>', unsafe_allow_html=True)
 
