@@ -120,3 +120,66 @@ class GeminiFormatter:
             import traceback
             traceback.print_exc()
             return None
+
+    def generate_metadata(self, text: str) -> Optional[str]:
+        """
+        テキストからタイトル案、紹介文案、ハッシュタグを生成
+
+        Returns:
+            フォーマット済みのメタデータ文字列
+        """
+        prompt = f"""以下のテキストから、TikTok/SNS投稿用のタイトル、紹介文、ハッシュタグを生成してください。
+
+【ルール】
+1. タイトル案：3つ提案（各30字以内、【見出し】本文 の形式）
+2. 紹介文案：3つ提案（各100字前後）
+3. ハッシュタグ：5つ提案
+
+【入力テキスト】
+{text}
+
+【出力フォーマット（このフォーマット厳守）】
+【タイトル案（『【見出し】本文』／各30字以内）】
+
+1）……
+
+2）……
+
+3）……
+
+【紹介文案（各100字前後）】
+
+1）……
+
+2）……
+
+3）……
+
+【ハッシュタグ（5つ）】
+
+#〇〇 #〇〇 #〇〇 #〇〇 #〇〇
+
+上記のフォーマットに従って、テキストの内容に基づいた魅力的なメタデータを生成してください。
+説明や追加コメントは不要です。フォーマット通りに出力してください。
+"""
+
+        try:
+            print(f"Gemini APIでメタデータ生成中... (テキスト長: {len(text)}文字)")
+            response = self.model.generate_content(prompt)
+            print(f"メタデータ生成レスポンス受信完了")
+
+            if hasattr(response, 'text'):
+                result = response.text.strip()
+                print(f"生成されたメタデータ: {len(result)}文字")
+                return result
+            else:
+                print(f"レスポンスにtextが含まれていません: {response}")
+                if hasattr(response, 'prompt_feedback'):
+                    print(f"Prompt feedback: {response.prompt_feedback}")
+                return None
+
+        except Exception as e:
+            print(f"メタデータ生成エラー: {type(e).__name__}: {e}")
+            import traceback
+            traceback.print_exc()
+            return None

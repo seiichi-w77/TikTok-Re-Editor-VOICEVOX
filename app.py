@@ -14,7 +14,7 @@ st.set_page_config(
     page_title="TikTok Re-Editor",
     page_icon="🎬",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # カスタムCSS - TikTokスタイルのボタンとUI
@@ -42,60 +42,71 @@ st.markdown("""
         text-shadow: 0 0 10px rgba(0, 242, 234, 0.5);
     }
 
-    /* 全てのボタンをSTARTボタンデザインに統一 - コンパクト版 */
-    .stButton > button {
+    /* 全てのボタンを左寄せ・同じ大きさに統一（BROWSE FILES除く） */
+    .stButton > button,
+    .stButton button,
+    .stDownloadButton > button,
+    .stDownloadButton button,
+    button[kind="primary"] {
         background: #000000 !important;
         color: white !important;
         border: 2px solid #00f2ea !important;
-        border-radius: 10px;
-        padding: 12px 30px;
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        box-shadow: 0 0 15px rgba(0, 242, 234, 0.5);
-        transition: all 0.3s ease;
-        width: 100%;
-        min-height: 45px;
+        border-radius: 10px !important;
+        padding: 12px 30px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        box-shadow: 0 0 15px rgba(0, 242, 234, 0.5) !important;
+        transition: all 0.3s ease !important;
+        width: 300px !important;
+        max-width: 300px !important;
+        min-height: 45px !important;
+        height: 45px !important;
+        line-height: 1.2 !important;
+        margin-right: auto !important;
+        margin-left: 0 !important;
+        display: block !important;
     }
 
-    .stButton > button:hover {
+    .stButton > button:hover:not(:disabled),
+    .stButton button:hover:not(:disabled),
+    .stDownloadButton > button:hover,
+    .stDownloadButton button:hover,
+    button[kind="primary"]:hover {
         background: #1a1a1a !important;
         border: 3px solid #00f2ea !important;
         color: #00f2ea !important;
         box-shadow:
             0 0 40px rgba(0, 242, 234, 1),
             0 0 60px rgba(0, 242, 234, 0.6),
-            inset 0 0 20px rgba(0, 242, 234, 0.2);
-        transform: translateY(-3px) scale(1.02);
+            inset 0 0 20px rgba(0, 242, 234, 0.2) !important;
+        transform: translateY(-3px) scale(1.02) !important;
     }
 
-    /* DOWNLOAD TEXTボタン - コンパクト版 */
-    .stDownloadButton > button {
-        background: #000000 !important;
-        color: white !important;
-        border: 2px solid #00f2ea !important;
-        border-radius: 10px;
-        padding: 12px 30px;
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        box-shadow: 0 0 15px rgba(0, 242, 234, 0.5);
-        transition: all 0.25s ease;
-        width: 100%;
-        min-height: 45px;
-    }
-
-    .stDownloadButton > button:hover {
-        background: #1a1a1a !important;
-        border: 3px solid #00f2ea !important;
+    /* BROWSE FILESボタンのホバー時 */
+    button[kind="secondary"]:hover {
         color: #00f2ea !important;
-        box-shadow:
-            0 0 40px rgba(0, 242, 234, 1),
-            0 0 60px rgba(0, 242, 234, 0.6),
-            inset 0 0 20px rgba(0, 242, 234, 0.2);
-        transform: translateY(-3px) scale(1.02);
+    }
+
+    /* Disabledボタンのスタイル */
+    .stButton > button:disabled,
+    .stButton button:disabled {
+        background: #000000 !important;
+        color: #666666 !important;
+        border: 2px solid #333333 !important;
+        border-radius: 10px !important;
+        padding: 12px 30px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        box-shadow: 0 0 5px rgba(51, 51, 51, 0.3) !important;
+        width: 100% !important;
+        min-height: 45px !important;
+        height: 45px !important;
+        cursor: not-allowed !important;
+        opacity: 0.5 !important;
     }
 
     /* テキストエリア - コンパクト版＋目立つカーソル */
@@ -136,12 +147,25 @@ st.markdown("""
         background: linear-gradient(90deg, #00f2ea 0%, #fe2c55 100%) !important;
     }
 
+    /* 各種ラベルを白文字に */
+    .stFileUploader label,
+    [data-testid="stFileUploader"] label,
+    .stFileUploader p,
+    [data-testid="stFileUploader"] p,
+    .stTextArea label,
+    .stTextInput label,
+    .stSelectbox label,
+    .stSlider label {
+        color: #ffffff !important;
+    }
+
     /* インフォボックス */
     .stInfo {
         background: rgba(0, 242, 234, 0.1) !important;
         border: 2px solid rgba(0, 242, 234, 0.5) !important;
         border-radius: 10px !important;
         box-shadow: 0 0 15px rgba(0, 242, 234, 0.3) !important;
+        color: #ffffff !important;
     }
 
     /* ファイルアップローダー */
@@ -255,6 +279,143 @@ st.markdown("""
     .stTabs > div > div > div {
         border-bottom: none !important;
     }
+
+    /* サイドバー開閉ボタンのスタイル改善 - バー内に配置 */
+    button[kind="header"] {
+        background: #000000 !important;
+        color: #00f2ea !important;
+        border: 2px solid #00f2ea !important;
+        border-radius: 8px !important;
+        padding: 6px 14px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 0 10px rgba(0, 242, 234, 0.5) !important;
+        transition: all 0.3s ease !important;
+        min-width: 110px !important;
+        text-align: left !important;
+        margin: 4px !important;
+        height: auto !important;
+        font-size: 13px !important;
+    }
+
+    button[kind="header"]:hover {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 20px rgba(0, 242, 234, 0.8) !important;
+        transform: scale(1.05) !important;
+    }
+
+    /* サイドバーボタンの後に「API設定」ラベルを追加 */
+    button[kind="header"]::after {
+        content: " API設定" !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        margin-left: 6px !important;
+        color: #00f2ea !important;
+        display: inline-block !important;
+    }
+
+    /* サイドバーが閉じている時のボタン */
+    [data-testid="collapsedControl"] {
+        top: 0 !important;
+        margin-top: 8px !important;
+    }
+
+    [data-testid="collapsedControl"] button {
+        background: #000000 !important;
+        color: #00f2ea !important;
+        border: 2px solid #00f2ea !important;
+        border-radius: 8px !important;
+        padding: 6px 14px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 0 10px rgba(0, 242, 234, 0.5) !important;
+        min-width: 110px !important;
+        height: auto !important;
+        font-size: 13px !important;
+        margin: 4px !important;
+    }
+
+    [data-testid="collapsedControl"] button::after {
+        content: " API設定" !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        margin-left: 6px !important;
+        color: #00f2ea !important;
+    }
+
+    /* サイドバー内の全てのテキスト色を黒に変更 - 最強版 */
+    .stSidebar {
+        background-color: #f0f2f6 !important;
+        color: #000000 !important;
+    }
+
+    /* 全ての要素を黒に */
+    .stSidebar *,
+    .stSidebar h1,
+    .stSidebar h2,
+    .stSidebar h3,
+    .stSidebar h4,
+    .stSidebar h5,
+    .stSidebar h6,
+    .stSidebar p,
+    .stSidebar span,
+    .stSidebar div,
+    .stSidebar label,
+    .stSidebar strong,
+    .stSidebar em,
+    .stSidebar li,
+    .stSidebar ul,
+    .stSidebar ol {
+        color: #000000 !important;
+    }
+
+    /* Markdown要素 */
+    .stSidebar .stMarkdown,
+    .stSidebar .stMarkdown *,
+    .stSidebar [data-testid="stMarkdownContainer"],
+    .stSidebar [data-testid="stMarkdownContainer"] *,
+    .stSidebar .element-container,
+    .stSidebar .element-container * {
+        color: #000000 !important;
+    }
+
+    /* ヘッダー要素 */
+    .stSidebar [data-testid="stHeader"],
+    .stSidebar [data-testid="stHeader"] *,
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: #000000 !important;
+    }
+
+    /* リンクをシアン色に（TikTokスタイル） */
+    .stSidebar a,
+    .stSidebar a * {
+        color: #00f2ea !important;
+        text-decoration: underline !important;
+    }
+
+    .stSidebar a:hover {
+        color: #ffffff !important;
+        text-shadow: 0 0 10px rgba(0, 242, 234, 0.8) !important;
+    }
+
+    /* インフォボックスのテキストも黒に */
+    .stSidebar .stAlert,
+    .stSidebar .stAlert *,
+    .stSidebar .stInfo,
+    .stSidebar .stInfo *,
+    .stSidebar .stWarning,
+    .stSidebar .stWarning * {
+        color: #000000 !important;
+    }
+
+    /* 特定のStreamlit要素クラス */
+    .stSidebar [class*="st-"],
+    .stSidebar [class*="st-"] * {
+        color: #000000 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -269,6 +430,8 @@ if 'generated_audio' not in st.session_state:
     st.session_state.generated_audio = None
 if 'sample_audio' not in st.session_state:
     st.session_state.sample_audio = None
+if 'generated_sns_content' not in st.session_state:
+    st.session_state.generated_sns_content = None
 
 # タイトル
 st.title("🎬 TikTok Re-Editor")
@@ -276,8 +439,8 @@ st.markdown("動画をアップロードして、文字起こし → 整形 → 
 
 # サイドバー：API設定
 with st.sidebar:
-    st.header("⚙️ API設定")
-    st.markdown("各APIキーを入力してください")
+    st.markdown('<h2 style="color: #000000;">⚙️ API設定</h2>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000;">各APIキーを入力してください</p>', unsafe_allow_html=True)
 
     # .envファイルから読み込み（ローカル開発用）
     env_gladia = os.getenv("GLADIA_API_KEY", "")
@@ -306,13 +469,13 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.markdown("### 📚 APIキーの取得方法")
-    st.markdown("- **Gladia API**: [gladia.io](https://www.gladia.io/)")
-    st.markdown("- **Gemini API**: [ai.google.dev](https://ai.google.dev/)")
-    st.markdown("- **VOICEVOX**: [voicevox.hiroshiba.jp](https://voicevox.hiroshiba.jp/)")
+    st.markdown('<h3 style="color: #000000;">📚 APIキーの取得方法</h3>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000;">- <strong>Gladia API</strong>: <a href="https://www.gladia.io/" style="color: #00f2ea; text-decoration: underline;">gladia.io</a></p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000;">- <strong>Gemini API</strong>: <a href="https://ai.google.dev/" style="color: #00f2ea; text-decoration: underline;">ai.google.dev</a></p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000;">- <strong>VOICEVOX</strong>: <a href="https://voicevox.hiroshiba.jp/" style="color: #00f2ea; text-decoration: underline;">voicevox.hiroshiba.jp</a></p>', unsafe_allow_html=True)
 
     st.markdown("---")
-    st.info("💡 テキストファイルから生成する場合、Gladia/Gemini APIは不要です")
+    st.markdown('<p style="color: #000000;">💡 テキストファイルから生成する場合、Gladia/Gemini APIは不要です</p>', unsafe_allow_html=True)
 
 # APIクライアントの初期化
 gladia = GladiaAPI(gladia_api_key) if gladia_api_key else None
@@ -432,7 +595,7 @@ with tab2:
 
 # セクション2: 整形済みテキスト表示
 if st.session_state.formatted_text:
-    st.header("📝 2. 整形済みテキスト")
+    st.header("📝 2. 整形済みテキスト（編集可能）")
 
     # テキストエリアの初期値を設定
     if "text_editor" not in st.session_state:
@@ -440,35 +603,13 @@ if st.session_state.formatted_text:
 
     # 編集可能なテキストエリア
     st.text_area(
-        "整形されたテキスト（編集可能）",
+        "整形されたテキスト",
         height=300,
         key="text_editor"
     )
 
-    # テキストダウンロードボタン（テキストエリアの直後）
-    st.subheader("💾 テキストをダウンロード")
-
-    # ファイル名の確認・編集
-    if "filename" not in st.session_state or not st.session_state.filename:
-        st.session_state.filename = "output"
-
-    final_filename = st.text_input(
-        "ファイル名（編集可能）",
-        value=st.session_state.filename,
-        key="filename_input"
-    )
-
-    # テキストファイルダウンロード
-    st.download_button(
-        label="DOWNLOAD TEXT",
-        data=st.session_state.text_editor,
-        file_name=f"{final_filename}.txt",
-        mime="text/plain",
-        key="download_text"
-    )
-
-    # セクション3: VOICEVOX設定
-    st.header("🎙️ 3. 音声合成設定")
+    # セクション3: VOICEVOX設定（音声生成）
+    st.header("🎙️ 3. 音声合成")
 
     # スピーカー一覧を取得
     speakers = voicevox.get_speakers()
@@ -536,17 +677,17 @@ if st.session_state.formatted_text:
                 "⚡ 話速（Speed）",
                 min_value=0.5,
                 max_value=2.0,
-                value=1.2,
+                value=1.0,
                 step=0.1
             )
 
             # 音声生成ボタン
-            if st.button("GENERATE", key="generate_btn"):
+            if st.button("GENERATE AUDIO", key="generate_btn"):
                 with st.spinner("音声を生成中... (時間がかかる場合があります)"):
-                    # 編集されたテキストを使用
-                    current_text = st.session_state.get("text_editor", st.session_state.formatted_text)
+                    # 【重要】整形済みテキストのみを使用（タイトル・紹介文・ハッシュタグは含まない）
+                    voice_text = st.session_state.text_editor
                     audio_data = voicevox.generate_voice(
-                        current_text,
+                        voice_text,
                         speaker_id,
                         speed
                     )
@@ -562,17 +703,6 @@ if st.session_state.formatted_text:
                 st.subheader("🎧 生成された音声")
                 st.audio(st.session_state.generated_audio, format="audio/wav")
 
-                # 音声ダウンロードボタン
-                st.subheader("💾 音声をダウンロード")
-                audio_filename = st.session_state.get("filename_input", st.session_state.get("filename", "output"))
-                st.download_button(
-                    label="DOWNLOAD AUDIO",
-                    data=st.session_state.generated_audio,
-                    file_name=f"{audio_filename}.wav",
-                    mime="audio/wav",
-                    key="download_audio"
-                )
-
     else:
         st.error("⚠️ VOICEVOXに接続できません")
         st.warning("""
@@ -583,6 +713,84 @@ if st.session_state.formatted_text:
 
         📥 VOICEVOXダウンロード: https://voicevox.hiroshiba.jp/
         """)
+
+    # セクション4: タイトル・紹介文・ハッシュタグ生成
+    st.header("📋 4. タイトル・紹介文・ハッシュタグ生成")
+    st.info("💡 音声生成後、SNS投稿用のタイトル・紹介文・ハッシュタグを作成できます")
+
+    # 生成ボタン
+    if st.button("GENERATE SNS CONTENT", key="generate_sns_content_btn"):
+        # Gemini APIキーチェック
+        if not gemini_api_key:
+            st.error("⚠️ サイドバーでGemini APIキーを入力してください")
+        elif not st.session_state.text_editor:
+            st.error("⚠️ テキストが見つかりません")
+        else:
+            with st.spinner("タイトル・紹介文・ハッシュタグを生成中..."):
+                sns_content = gemini.generate_metadata(st.session_state.text_editor)
+                if sns_content:
+                    st.session_state.generated_sns_content = sns_content
+                    st.success("✅ タイトル・紹介文・ハッシュタグを生成しました！")
+                else:
+                    st.error("生成に失敗しました")
+
+    # 生成されたコンテンツを表示・編集可能に
+    if st.session_state.generated_sns_content:
+        st.subheader("📝 生成されたコンテンツ（編集可能）")
+
+        # コンテンツエディター
+        if "sns_content_editor" not in st.session_state:
+            st.session_state.sns_content_editor = st.session_state.generated_sns_content
+
+        st.text_area(
+            "タイトル・紹介文・ハッシュタグ",
+            height=400,
+            key="sns_content_editor"
+        )
+
+    # セクション5: ダウンロード
+    st.header("💾 5. ダウンロード")
+
+    # ファイル名の確認・編集
+    if "filename" not in st.session_state or not st.session_state.filename:
+        st.session_state.filename = "output"
+
+    final_filename = st.text_input(
+        "ファイル名（編集可能）",
+        value=st.session_state.filename,
+        key="filename_input"
+    )
+
+    # 2つのダウンロードボタンを横並びに配置
+    col1, col2 = st.columns(2)
+
+    with col1:
+        # テキストダウンロード（整形済み + タイトル・紹介文・ハッシュタグ）
+        text_download_data = st.session_state.text_editor
+        if st.session_state.generated_sns_content and st.session_state.get("sns_content_editor"):
+            text_download_data = st.session_state.text_editor + "\n\n" + st.session_state.sns_content_editor
+
+        st.download_button(
+            label="TEXT DOWNLOAD",
+            data=text_download_data,
+            file_name=f"{final_filename}.txt",
+            mime="text/plain",
+            key="download_text"
+        )
+
+    with col2:
+        # 音声ファイルをダウンロード（音声生成済みの場合のみ表示）
+        if st.session_state.generated_audio:
+            st.download_button(
+                label="AUDIO DOWNLOAD",
+                data=st.session_state.generated_audio,
+                file_name=f"{final_filename}.wav",
+                mime="audio/wav",
+                key="download_audio"
+            )
+        else:
+            # 音声未生成の場合は何も表示しない（スペースのみ）
+            st.write("")
 
 # フッター
 st.markdown("---")
