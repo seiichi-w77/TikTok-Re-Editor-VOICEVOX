@@ -814,15 +814,17 @@ if st.session_state.formatted_text:
                 current_chunk = ""
 
                 for char in line:
-                    current_chunk += char
                     if char in ['。', '、']:
-                        # 句読点を削除して追加
-                        chunks.append(current_chunk.replace('。', '').replace('、', ''))
-                        current_chunk = ""
+                        # 句読点の前までをchunkに追加（句読点は含めない）
+                        if current_chunk:
+                            chunks.append(current_chunk)
+                            current_chunk = ""
+                    else:
+                        current_chunk += char
 
                 # 残りがあれば追加
                 if current_chunk:
-                    chunks.append(current_chunk.replace('。', '').replace('、', ''))
+                    chunks.append(current_chunk)
 
                 # chunksを14文字程度でまとめる（できるだけ14文字に近づける）
                 current_line = ""
