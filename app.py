@@ -657,6 +657,7 @@ if st.session_state.formatted_text:
     )
 
     # セクション3: VOICEVOX設定（音声生成）
+    st.markdown('<div id="voice-synthesis-section"></div>', unsafe_allow_html=True)
     st.header("🎙️ 3. 音声合成")
 
     # スピーカー一覧を取得
@@ -743,11 +744,11 @@ if st.session_state.formatted_text:
                     if audio_data:
                         st.session_state.generated_audio = audio_data
                         st.success("✅ 音声を生成しました！")
-                        # ダウンロードセクションに自動スクロール
+                        # SNSコンテンツ生成セクションに自動スクロール（次のステップを促す）
                         st.components.v1.html("""
                         <script>
                             setTimeout(function() {
-                                const section = window.parent.document.getElementById('download-section');
+                                const section = window.parent.document.getElementById('sns-content-section');
                                 if (section) {
                                     section.scrollIntoView({behavior: 'smooth', block: 'start'});
                                 }
@@ -774,6 +775,7 @@ if st.session_state.formatted_text:
         """)
 
     # セクション4: タイトル・紹介文・ハッシュタグ生成
+    st.markdown('<div id="sns-content-section"></div>', unsafe_allow_html=True)
     st.header("📋 4. タイトル・紹介文・ハッシュタグ生成")
     st.info("💡 音声生成後、SNS投稿用のタイトル・紹介文・ハッシュタグを作成できます")
 
