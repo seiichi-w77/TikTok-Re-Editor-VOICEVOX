@@ -790,10 +790,70 @@ if st.session_state.formatted_text:
     col1, col2 = st.columns(2)
 
     with col1:
+        # テキストダウンロード用の整形処理
+        def format_text_for_download(text: str, target_length: int = 14) -> str:
+            """
+            テキストをダウンロード用に整形
+            - 句読点（。、）を削除
+            - 14文字程度で適切に改行（句読点の位置を基準に）
+            """
+            # 既存の改行で分割
+            lines = text.split('\n')
+
+            # 新しい行のリスト
+            new_lines = []
+
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    continue
+
+                # 句点・読点の位置を記録
+                # 句点（。）と読点（、）を改行候補位置としてマーク
+                chunks = []
+                current_chunk = ""
+
+                for char in line:
+                    current_chunk += char
+                    if char in ['。', '、']:
+                        # 句読点を削除して追加
+                        chunks.append(current_chunk.replace('。', '').replace('、', ''))
+                        current_chunk = ""
+
+                # 残りがあれば追加
+                if current_chunk:
+                    chunks.append(current_chunk.replace('。', '').replace('、', ''))
+
+                # chunksを14文字程度でまとめる
+                current_line = ""
+                for chunk in chunks:
+                    chunk = chunk.strip()
+                    if not chunk:
+                        continue
+
+                    # 現在の行にchunkを追加した場合の長さをチェック
+                    if current_line and len(current_line + chunk) > target_length:
+                        # 長すぎる場合は現在の行を確定
+                        new_lines.append(current_line)
+                        current_line = chunk
+                    else:
+                        # 追加できる場合は追加
+                        current_line += chunk
+
+                # 残りがあれば追加
+                if current_line:
+                    new_lines.append(current_line)
+
+            return '\n'.join(new_lines)
+
         # テキストダウンロード（整形済み + タイトル・紹介文・ハッシュタグ）
-        text_download_data = st.session_state.text_editor
+        # 本文は句読点削除 + 14文字改行
+        formatted_main_text = format_text_for_download(st.session_state.text_editor)
+
+        text_download_data = formatted_main_text
         if st.session_state.generated_sns_content and st.session_state.get("sns_content_editor"):
-            text_download_data = st.session_state.text_editor + "\n\n" + st.session_state.sns_content_editor
+            # SNSコンテンツはそのまま（句読点削除しない）
+            text_download_data = formatted_main_text + "\n\n" + st.session_state.sns_content_editor
 
         st.download_button(
             label="TEXT DOWNLOAD",
