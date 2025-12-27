@@ -439,8 +439,8 @@ st.markdown("動画をアップロードして、文字起こし → 整形 → 
 
 # サイドバー：API設定
 with st.sidebar:
-    st.markdown('<h2 style="color: #000000;">⚙️ API設定</h2>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #000000;">各APIキーを入力してください</p>', unsafe_allow_html=True)
+    st.markdown('<h2 style="color: #000000 !important;">⚙️ API設定</h2>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000 !important;">各APIキーを入力してください</p>', unsafe_allow_html=True)
 
     # .envファイルから読み込み（ローカル開発用）
     env_gladia = os.getenv("GLADIA_API_KEY", "")
@@ -469,13 +469,13 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.markdown('<h3 style="color: #000000;">📚 APIキーの取得方法</h3>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #000000;">- <strong>Gladia API</strong>: <a href="https://www.gladia.io/" style="color: #00f2ea; text-decoration: underline;">gladia.io</a></p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #000000;">- <strong>Gemini API</strong>: <a href="https://ai.google.dev/" style="color: #00f2ea; text-decoration: underline;">ai.google.dev</a></p>', unsafe_allow_html=True)
-    st.markdown('<p style="color: #000000;">- <strong>VOICEVOX</strong>: <a href="https://voicevox.hiroshiba.jp/" style="color: #00f2ea; text-decoration: underline;">voicevox.hiroshiba.jp</a></p>', unsafe_allow_html=True)
+    st.markdown('<h3 style="color: #000000 !important;">📚 APIキーの取得方法</h3>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000 !important;">- <strong style="color: #000000 !important;">Gladia API</strong>: <a href="https://www.gladia.io/" style="color: #00f2ea; text-decoration: underline;">gladia.io</a></p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000 !important;">- <strong style="color: #000000 !important;">Gemini API</strong>: <a href="https://ai.google.dev/" style="color: #00f2ea; text-decoration: underline;">ai.google.dev</a></p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000 !important;">- <strong style="color: #000000 !important;">VOICEVOX</strong>: <a href="https://voicevox.hiroshiba.jp/" style="color: #00f2ea; text-decoration: underline;">voicevox.hiroshiba.jp</a></p>', unsafe_allow_html=True)
 
     st.markdown("---")
-    st.markdown('<p style="color: #000000;">💡 テキストファイルから生成する場合、Gladia/Gemini APIは不要です</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #000000 !important;">💡 テキストファイルから生成する場合、Gladia/Gemini APIは不要です</p>', unsafe_allow_html=True)
 
 # APIクライアントの初期化
 gladia = GladiaAPI(gladia_api_key) if gladia_api_key else None
