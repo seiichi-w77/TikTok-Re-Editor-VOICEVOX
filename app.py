@@ -565,6 +565,17 @@ with tab1:
                                 st.session_state.filename = filename
                                 st.write("✅ ファイル名生成完了")
                                 status.update(label="✅ すべての処理が完了しました！", state="complete")
+                                # 整形済みテキストセクションに自動スクロール
+                                st.components.v1.html("""
+                                <script>
+                                    setTimeout(function() {
+                                        const section = window.parent.document.getElementById('formatted-text-section');
+                                        if (section) {
+                                            section.scrollIntoView({behavior: 'smooth', block: 'start'});
+                                        }
+                                    }, 500);
+                                </script>
+                                """, height=0)
                             else:
                                 st.error("ファイル名生成に失敗しました")
                         else:
@@ -614,12 +625,24 @@ with tab2:
                         st.write("✅ ファイル名設定完了")
 
                         status.update(label="✅ すべての処理が完了しました！", state="complete")
+                        # 整形済みテキストセクションに自動スクロール
+                        st.components.v1.html("""
+                        <script>
+                            setTimeout(function() {
+                                const section = window.parent.document.getElementById('formatted-text-section');
+                                if (section) {
+                                    section.scrollIntoView({behavior: 'smooth', block: 'start'});
+                                }
+                            }, 500);
+                        </script>
+                        """, height=0)
 
                 except Exception as e:
                     st.error(f"❌ テキスト読み込みエラー: {str(e)}")
 
 # セクション2: 整形済みテキスト表示
 if st.session_state.formatted_text:
+    st.markdown('<div id="formatted-text-section"></div>', unsafe_allow_html=True)
     st.header("📝 2. 整形済みテキスト（編集可能）")
 
     # テキストエリアの初期値を設定
