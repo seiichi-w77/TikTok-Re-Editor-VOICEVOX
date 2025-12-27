@@ -720,6 +720,17 @@ if st.session_state.formatted_text:
                     if audio_data:
                         st.session_state.generated_audio = audio_data
                         st.success("✅ 音声を生成しました！")
+                        # ダウンロードセクションに自動スクロール
+                        st.components.v1.html("""
+                        <script>
+                            setTimeout(function() {
+                                const section = window.parent.document.getElementById('download-section');
+                                if (section) {
+                                    section.scrollIntoView({behavior: 'smooth', block: 'start'});
+                                }
+                            }, 100);
+                        </script>
+                        """, height=0)
                     else:
                         st.error("音声生成に失敗しました")
 
@@ -756,6 +767,17 @@ if st.session_state.formatted_text:
                 if sns_content:
                     st.session_state.generated_sns_content = sns_content
                     st.success("✅ タイトル・紹介文・ハッシュタグを生成しました！")
+                    # ダウンロードセクションに自動スクロール
+                    st.components.v1.html("""
+                    <script>
+                        setTimeout(function() {
+                            const section = window.parent.document.getElementById('download-section');
+                            if (section) {
+                                section.scrollIntoView({behavior: 'smooth', block: 'start'});
+                            }
+                        }, 100);
+                    </script>
+                    """, height=0)
                 else:
                     st.error("生成に失敗しました")
 
@@ -774,6 +796,7 @@ if st.session_state.formatted_text:
         )
 
     # セクション5: ダウンロード
+    st.markdown('<div id="download-section"></div>', unsafe_allow_html=True)
     st.header("💾 5. ダウンロード")
 
     # ファイル名の確認・編集
