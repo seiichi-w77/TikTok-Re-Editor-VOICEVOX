@@ -71,18 +71,20 @@
 
 #### 方法A: ZIPでダウンロード（簡単・推奨）
 
-1. https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX にアクセス
+1. https://github.com/seiichi-w77/TikTok-Re-Editor-VOICEVOX にアクセス
 2. **緑色の「Code」ボタン**をクリック
 3. **「Download ZIP」**をクリック
 4. ダウンロードしたZIPファイルを解凍
    - **Windows**: 右クリック → 「すべて展開」
    - **Mac**: ダブルクリック
+   - **フォルダ名**: `TikTok-Re-Editor-VOICEVOX-main` ができます
 
 #### 方法B: Gitでダウンロード（上級者向け）
 
 ```bash
-git clone https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX.git
+git clone https://github.com/seiichi-w77/TikTok-Re-Editor-VOICEVOX.git
 ```
+- **フォルダ名**: `TikTok-Re-Editor-VOICEVOX` ができます
 
 ---
 
@@ -93,7 +95,7 @@ git clone https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX.git
 
 #### Windowsの場合
 
-1. **解凍したフォルダ**を開く
+1. **解凍したフォルダ**（`TikTok-Re-Editor-VOICEVOX-main` または `TikTok-Re-Editor-VOICEVOX`）を開く
 2. フォルダ内の**何もないところで「Shift + 右クリック」**
 3. **「PowerShellウィンドウをここで開く」**または**「コマンドウィンドウをここで開く」**を選択
 4. 以下を入力してEnter：
@@ -106,7 +108,7 @@ git clone https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX.git
 
 1. **「ターミナル」**を開く
 2. `cd ` と入力（スペース含む）
-3. **解凍したフォルダ**をターミナルにドラッグ＆ドロップ
+3. **解凍したフォルダ**（`TikTok-Re-Editor-VOICEVOX-main` または `TikTok-Re-Editor-VOICEVOX`）をターミナルにドラッグ＆ドロップ
 4. Enterを押す
 5. 以下を入力してEnter：
    ```bash
@@ -258,7 +260,7 @@ Gladia APIとGemini APIが必要です：
 
 **配布用リンク**:
 ```
-https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX
+https://github.com/seiichi-w77/TikTok-Re-Editor-VOICEVOX
 ```
 
 このリンクを教えて、このREADMEの手順に従ってもらってください。
@@ -278,7 +280,7 @@ PCでVOICEVOXを起動する必要があるため、スマホ・タブレット�
 **A**: 上の「トラブルシューティング」を確認してください。
 
 それでも解決しない場合は、GitHubのIssuesで質問してください：
-https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX/issues
+https://github.com/seiichi-w77/TikTok-Re-Editor-VOICEVOX/issues
 
 ---
 
@@ -331,7 +333,7 @@ https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX/issues
 
 ## 📚 詳しい情報
 
-- **GitHub**: https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX
+- **GitHub**: https://github.com/seiichi-w77/TikTok-Re-Editor-VOICEVOX
 
 ---
 
@@ -344,6 +346,6 @@ https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX/issues
 
 ---
 
-Made with ❤️ by typeone1964-creator
+Made with ❤️ by seiichi-w77
 
 **PCでVOICEVOXをインストール済みなら、すぐに使えます！**
