@@ -124,7 +124,7 @@ git clone https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX.git
 - 画面が表示されて、使える状態になればOKです
 - このまま起動したままにしておいてください
 
-#### 2. このアプリを起動
+#### 2. このアプリを起動してブラウザで開く
 
 **Windowsの場合：**
 1. アプリのフォルダで**「Shift + 右クリック」** → **「PowerShellウィンドウをここで開く」**
@@ -132,6 +132,8 @@ git clone https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX.git
    ```bash
    streamlit run app.py
    ```
+3. **自動的にブラウザが開きます**
+   - 開かない場合は、ブラウザで `http://localhost:8501` にアクセス
 
 **Macの場合：**
 1. **「ターミナル」**で、アプリのフォルダに移動（ステップ4と同じ）
@@ -139,14 +141,8 @@ git clone https://github.com/typeone1964-creator/TikTok-Re-Editor-VOICEVOX.git
    ```bash
    streamlit run app.py
    ```
-
-#### 3. ブラウザで開く
-
-- 自動的にブラウザが開きます
-- 開かない場合は、ブラウザで以下のアドレスにアクセス：
-  ```
-  http://localhost:8501
-  ```
+3. **自動的にブラウザが開きます**
+   - 開かない場合は、ブラウザで `http://localhost:8501` にアクセス
 
 **「localhost」って何？**
 「あなたのPC」という意味です。あなたのPC上でアプリが動いています。
